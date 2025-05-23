@@ -3,10 +3,10 @@ const pool = require('../config/database');
 
 // Criar uma novo notebook
 exports.criarNotebook = async (req, res) => {
-  const { nome, numero_notebook } = req.body;
+  const { numero_notebook } = req.body;
 
-  const query = 'INSERT INTO notebooks (nome, numero_notebook) VALUES ($1, $2) RETURNING *';
-  const values = [nome, numero_notebook];
+  const query = 'INSERT INTO notebooks ( numero_notebook) VALUES ($1) RETURNING *';
+  const values = [ numero_notebook];
 
   try {
     const result = await pool.query(query, values);
