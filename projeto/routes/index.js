@@ -10,7 +10,6 @@ router.put('/agendamento/:id', agendamentoController.editarAgendamento);
 router.delete('/agendamento/:id', agendamentoController.excluirAgendamento);
 
 // routes/index.js
-const express = require('express');
 const funcionarioController = require('../controllers/funcionarioController');
 
 // Rotas para o CRUD de funionarios
@@ -20,7 +19,6 @@ router.put('/funcionario/:id', funcionarioController.editarFuncionario);
 router.delete('/funcionario/:id', funcionarioController.excluirFuncionario);
 
 // routes/index.js
-const express = require('express');
 const notebookController = require('../controllers/notebookController');
 
 // Rotas para o CRUD de notebooks
@@ -29,11 +27,10 @@ router.get('/notebooks', notebookController.listarNotebook);
 router.delete('/notebooks/:id', notebookController.excluirNotebook);
 
 // routes/index.js
-const express = require('express');
 const salaController = require('../controllers/salaController');
 
 // Rotas para o CRUD de salas
-router.post('/salas', TarefaController.criarSala);
+router.post('/salas', salaController.criarSala);
 router.get('/salas', salaController.listarSala);
 router.delete('/salas/:id', salaController.excluirSala);
 

@@ -17,8 +17,8 @@ exports.criarFuncionario = async (req, res) => {
   }
 };
 
-// Listar todas os funcionarios
-exports.listarFuncionarios = async (req, res) => {
+// Listar todos os funcionarios
+exports.listarFuncionario = async (req, res) => {
   const query = 'SELECT * FROM funcionarios';
 
   try {
@@ -34,8 +34,7 @@ exports.editarFuncionario = async (req, res) => {
   const { id } = req.params;
   const { nome, cargo, dia_responsavel } = req.body;
 
-  const query = `
-    UPDATE funcionarios SET nome = $1, cargo = $2, dia_responsavel = $3, updated_at = CURRENT_TIMESTAMP
+  const query = `UPDATE funcionarios SET nome = $1, cargo = $2, dia_responsavel = $3, updated_at = CURRENT_TIMESTAMP
     WHERE id = $4 RETURNING *`;
   const values = [nome, cargo, dia_responsavel, id];
 
