@@ -22,8 +22,7 @@
 
 ## <a name="introducao"></a>1. Introdução (Semana 01)
 
-*Preencha com até 300 palavras – sem necessidade de fonte.*  
-*Descreva brevemente o sistema que você irá desenvolver.*
+Estou desenvolvendo um sistema web para o agendamento de salas de estudos, nesse site você poderá agendar salas com notebooks, como o site não é voltado somente para os clientes nele também poderá fazer alterações como deletar funcionários, mudar os turnos de trabalhos deles e mudar os cargos deles caso recebam uma promoção.
 
 ---
 
