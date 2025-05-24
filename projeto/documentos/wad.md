@@ -83,7 +83,6 @@ Tabela central do sistema. Registra cada agendamento realizado.
 `id`: Identificador do agendamento, `usuario_id`: Quem agendou (FK para `USUARIOS`), `funcionario_id`: Responsável pelo agendamento (FK para `FUNCIONARIOS`), `sala_id`: Sala reservada (FK para `SALAS`), `notebook_id`: Notebook reservado (FK para `NOTEBOOKS`), `disponibilidade_sala` e `disponibilidade_notebook`: Indicadores booleanos de disponibilidade, `data_preenchimento`, `horario`, `cancelamento`
 
 
-
 **Relacionamentos**
 
 A tabela `AGENDAMENTO` conecta todas as outras:
@@ -140,3 +139,7 @@ CREATE TABLE AGENDAMENTO (
     FOREIGN KEY (sala_id) REFERENCES SALAS(id),
     FOREIGN KEY (notebook_id) REFERENCES NOTEBOOKS(id)
 );
+
+### 3.2. Diagrama de arquitetura
+
+<img src= '../assets/diagramaMVC.png' alt='imagem arquitetura MVC'>
