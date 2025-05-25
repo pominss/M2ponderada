@@ -139,7 +139,12 @@ CREATE TABLE AGENDAMENTO (
     FOREIGN KEY (sala_id) REFERENCES SALAS(id),
     FOREIGN KEY (notebook_id) REFERENCES NOTEBOOKS(id)
 );
+```
 
-### 3.2. Diagrama de arquitetura
+### 3.2. Diagrama de arquitetura:
 
 <img src= '../assets/diagramaMVC.png' alt='imagem arquitetura MVC'>
+
+### Como iniciar o projeto:
+1- crie o arquivo .env
+2- 
