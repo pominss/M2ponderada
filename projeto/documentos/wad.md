@@ -146,5 +146,12 @@ CREATE TABLE AGENDAMENTO (
 <img src= '../assets/diagramaMVC.png' alt='imagem arquitetura MVC'>
 
 ### Como iniciar o projeto:
-1- crie o arquivo .env
-2- 
+1- Crie o arquivo .env
+2- Preencha as informações:
+DB_HOST=
+DB_PORT=
+DB_USER=
+DB_PASSWORD=
+DB_NAME=
+3- Para fazer alterações no banco de dados deve-se ir no arquivo init.sql e fazer as alterações e rodar o comando npm run init-db
+4- Para testar as APIs é preciso de um programa externo use o Postman para testes manuais e Jest/Supertest para testes automatizados.
