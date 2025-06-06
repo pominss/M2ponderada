@@ -1,0 +1,127 @@
+### Usuários ###
+
+# Get all users
+GET http://localhost:3000/api/users
+Accept: application/json
+
+### Get user by ID
+GET http://localhost:3000/api/users/1
+Accept: application/json
+
+### Create user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "name": "Test User",
+    "email": "test@example.com"
+}
+
+### Update user
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+
+{
+    "name": "Updated User",
+    "email": "updated@example.com"
+}
+
+### Delete user
+DELETE http://localhost:3000/api/users/1
+
+### Agendamentos ###
+
+# Get all agendamentos
+GET http://localhost:3000/api/agendamento
+Accept: application/json
+
+### Create agendamento
+POST http://localhost:3000/api/agendamento
+Content-Type: application/json
+
+{
+    "usuario_id": 1,
+    "funcionario_id": 1,
+    "sala_id": 1,
+    "notebook_id": 1,
+    "disponibilidade_notebook": true,
+    "disponibilidade_sala": true,
+    "data_preenchimento": "2024-03-20",
+    "horario": "14:00",
+    "cancelamento": false
+}
+
+### Update agendamento
+PUT http://localhost:3000/api/agendamento/1
+Content-Type: application/json
+
+{
+    "horario": "15:00"
+}
+
+### Delete agendamento
+DELETE http://localhost:3000/api/agendamento/1
+
+### Funcionários ###
+
+# Get all funcionários
+GET http://localhost:3000/api/funcionario
+Accept: application/json
+
+### Create funcionário
+POST http://localhost:3000/api/funcionario
+Content-Type: application/json
+
+{
+    "nome": "João Silva",
+    "cargo": "Analista",
+    "dia_responsavel": "Segunda-feira",
+    "nascimento": "1990-01-01"
+}
+
+### Update funcionário
+PUT http://localhost:3000/api/funcionario/1
+Content-Type: application/json
+
+{
+    "nome": "João Silva Atualizado",
+    "cargo": "Gerente",
+    "dia_responsavel": "Terça-feira"
+}
+
+### Delete funcionário
+DELETE http://localhost:3000/api/funcionario/1
+
+### Salas ###
+
+# Get all salas
+GET http://localhost:3000/api/salas
+Accept: application/json
+
+### Create sala
+POST http://localhost:3000/api/salas
+Content-Type: application/json
+
+{
+    "numero_sala": 101
+}
+
+### Delete sala
+DELETE http://localhost:3000/api/salas/1
+
+### Notebooks ###
+
+# Get all notebooks
+GET http://localhost:3000/api/notebooks
+Accept: application/json
+
+### Create notebook
+POST http://localhost:3000/api/notebooks
+Content-Type: application/json
+
+{
+    "numero_notebook": 1001
+}
+
+### Delete notebook
+DELETE http://localhost:3000/api/notebooks/1

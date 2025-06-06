@@ -1,5 +1,5 @@
 -- Tabela de usuários
-CREATE TABLE USUARIOS (
+CREATE TABLE IF NOT EXISTS USUARIOS (
     id INT PRIMARY KEY,
     nome VARCHAR(100),
     sobrenome VARCHAR(100),
@@ -8,19 +8,19 @@ CREATE TABLE USUARIOS (
 );
 
 -- Tabela de salas
-CREATE TABLE SALAS (
+CREATE TABLE IF NOT EXISTS SALAS (
     id INT PRIMARY KEY,
     numero_sala INT
 );
 
 -- Tabela de notebooks
-CREATE TABLE NOTEBOOKS (
+CREATE TABLE IF NOT EXISTS NOTEBOOKS (
     id INT PRIMARY KEY,
     numero_notebook INT
 );
 
 -- Tabela de funcionários
-CREATE TABLE FUNCIONARIOS (
+CREATE TABLE IF NOT EXISTS FUNCIONARIOS (
     id INT PRIMARY KEY,
     nome VARCHAR(100),
     cargo VARCHAR(50),
@@ -29,7 +29,7 @@ CREATE TABLE FUNCIONARIOS (
 );
 
 -- Tabela de agendamentos
-CREATE TABLE AGENDAMENTO (
+CREATE TABLE IF NOT EXISTS AGENDAMENTO (
     id INT PRIMARY KEY,
     usuario_id INT,
     funcionario_id INT,

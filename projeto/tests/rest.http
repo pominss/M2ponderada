@@ -1,0 +1,26 @@
+GET http://localhost:3000/api/resource
+Accept: application/json
+
+###
+
+POST http://localhost:3000/api/resource
+Content-Type: application/json
+
+{
+    "name": "New Resource",
+    "description": "This is a new resource."
+}
+
+###
+
+PUT http://localhost:3000/api/resource/1
+Content-Type: application/json
+
+{
+    "name": "Updated Resource",
+    "description": "This resource has been updated."
+}
+
+###
+
+DELETE http://localhost:3000/api/resource/1

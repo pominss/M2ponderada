@@ -13,7 +13,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Usando as rotas definidas
-app.use('/api', routes);
+app.use('/api', userRoutes);
+app.use('/api', index);
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
