@@ -1,0 +1,21 @@
+<h1>Agendamentos</h1>
+<table border="1">
+  <tr>
+    <th>ID</th><th>Usuário</th><th>Funcionário</th><th>Sala</th><th>Notebook</th>
+    <th>Disp. Notebook</th><th>Disp. Sala</th><th>Data</th><th>Horário</th><th>Cancelado</th>
+  </tr>
+  <% agendamentos.forEach(ag => { %>
+    <tr>
+      <td><%= ag.id %></td>
+      <td><%= ag.usuario_id %></td>
+      <td><%= ag.funcionario_id %></td>
+      <td><%= ag.sala_id %></td>
+      <td><%= ag.notebook_id %></td>
+      <td><%= ag.disponibilidade_notebook %></td>
+      <td><%= ag.disponibilidade_sala %></td>
+      <td><%= ag.data_preenchimento %></td>
+      <td><%= ag.horario %></td>
+      <td><%= ag.cancelamento %></td>
+    </tr>
+  <% }); %>
+</table>

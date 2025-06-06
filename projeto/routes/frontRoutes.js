@@ -10,13 +10,19 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/about', (req, res) => {
+router.get('/agendamento', (req, res) => {
   res.render(path.join(__dirname, '../views/layout/main'), {
     pageTitle: 'Página Inicial',
-    content: path.join(__dirname, '../views/pages/page2')
+    content: path.join(__dirname, '../views/pages/agendamentos/index')
   });
 });
 
-// Adicione outras rotas conforme necessário
+router.get('/funcionarios', (req, res) => {
+  res.render(path.join(__dirname, '../views/layout/main'), {
+    pageTitle: 'Página Inicial',
+    content: path.join(__dirname, '../views/pages/agendamento/seusAgendamentos')
+  });
+});
+
 
 module.exports = router;
