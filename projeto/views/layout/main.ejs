@@ -4,25 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= pageTitle %></title>  
-  <style>
-    <%- include('../css/style.css'); %>
-  </style>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <!-- Inclui o cabeçalho como um partial -->
+  <!-- Inclui o cabeÃ§alho como um partial -->
   <%- include('../components/header') %>
 
-  <main>
-    <!-- Renderiza o conteúdo da página específica -->
+  <main class="container">
+    <% if (typeof error !== 'undefined' && error) { %>
+      <div class="alert alert-danger">
+        <%= error %>
+      </div>
+    <% } %>
+    
+    <!-- Renderiza o conteÃēdo da pÃĄgina especÃ­fica -->
     <%- include(content) %>
   </main>
 
   <footer>
-    <!-- Rodapé comum aqui -->
-    <p>Rodapé da Aplicação</p>
+    <div class="container">
+      <p>&copy; 2025 Sistema de Agendamentos | Trabalho AcadÃĒmico</p>
+    </div>
   </footer>
 
-  <!-- Adicione scripts JS se necessário -->
+  <!-- Scripts JS -->
   <script src="/js/script.js"></script>
   
 </body>

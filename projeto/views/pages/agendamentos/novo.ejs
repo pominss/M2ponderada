@@ -1,0 +1,116 @@
+<h2 class="page-title">Novo Agendamento</h2>
+
+<div class="card">
+  <form id="agendamento-form" class="p-3">
+    <div class="form-group">
+      <label for="funcionario_id">Funcionário:</label>
+      <select name="funcionario_id" id="funcionario_id" required class="form-control">
+        <option value="">Selecione um funcionário</option>
+        <% if (locals.funcionarios && funcionarios.length > 0) { %>
+          <% funcionarios.forEach(func => { %>
+            <option value="<%= func.id %>"><%= func.nome %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="sala_id">Sala:</label>
+      <select name="sala_id" id="sala_id" class="form-control">
+        <option value="">Nenhuma sala necessária</option>
+        <% if (locals.salas && salas.length > 0) { %>
+          <% salas.forEach(sala => { %>
+            <option value="<%= sala.id %>"><%= sala.nome || `Sala ${sala.numero_sala}` %> - Andar: <%= sala.andar || 'Térreo' %> <%= sala.disponibilidade === false ? '(Indisponível)' : '' %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="notebook_id">Notebook:</label>
+      <select name="notebook_id" id="notebook_id" class="form-control">
+        <option value="">Nenhum notebook necessário</option>
+        <% if (locals.notebooks && notebooks.length > 0) { %>
+          <% notebooks.forEach(notebook => { %>
+            <option value="<%= notebook.id %>"><%= notebook.modelo %> - <%= notebook.especificacao %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="data_preenchimento">Data:</label>
+      <input type="date" id="data_preenchimento" name="data_preenchimento" required class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="horario">Horário:</label>
+      <select name="horario" id="horario" required class="form-control">
+        <option value="">Selecione um horário</option>
+        <option value="08:00">08:00</option>
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+        <option value="17:00">17:00</option>
+      </select>
+    </div>
+    
+    <div class="form-group mt-3 text-center">
+      <button type="submit" class="btn btn-success">Criar Agendamento</button>
+      <a href="/agendamentos" class="btn btn-danger ml-2">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Set today as the minimum date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('data_preenchimento').setAttribute('min', today);
+  
+  // Form submission handler
+  const form = document.getElementById('agendamento-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Collect form data
+    const formData = new FormData(form);
+    const agendamentoData = {
+      funcionario_id: formData.get('funcionario_id'),
+      sala_id: formData.get('sala_id') || null,
+      notebook_id: formData.get('notebook_id') || null,
+      data_preenchimento: formData.get('data_preenchimento'),
+      horario: formData.get('horario'),
+      disponibilidade_notebook: true,
+      disponibilidade_sala: true,
+      cancelamento: false,
+      usuario_id: 1 // Default user ID
+    };
+    
+    try {
+      const response = await fetch('/api/agendamento', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(agendamentoData)
+      });
+      
+      if (response.ok) {
+        alert('Agendamento criado com sucesso!');
+        window.location.href = '/agendamentos';
+      } else {
+        const error = await response.json();
+        alert(`Erro ao criar agendamento: ${error.message || 'Tente novamente'}`);
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Ocorreu um erro ao processar sua solicitação.');
+    }
+  });
+});
+</script>

@@ -1,0 +1,85 @@
+<h2 class="page-title">Nova Sala</h2>
+
+<div class="card">
+  <form id="sala-form" class="p-3">
+    <div class="form-group">
+      <label for="numero_sala">Número da Sala:</label>
+      <input type="number" id="numero_sala" name="numero_sala" required class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="nome">Nome da Sala:</label>
+      <input type="text" id="nome" name="nome" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="andar">Andar:</label>
+      <input type="number" id="andar" name="andar" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="capacidade">Capacidade (pessoas):</label>
+      <input type="number" id="capacidade" name="capacidade" class="form-control">
+    </div>
+    
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" name="descricao" rows="4" class="form-control"></textarea>
+    </div>
+    
+    <div class="form-group">
+      <label for="disponibilidade">Disponibilidade:</label>
+      <select id="disponibilidade" name="disponibilidade" class="form-control">
+        <option value="true" selected>Disponível</option>
+        <option value="false">Indisponível</option>
+      </select>
+    </div>
+    
+    <div class="form-group mt-3 text-center">
+      <button type="submit" class="btn btn-success">Cadastrar Sala</button>
+      <a href="/salas" class="btn btn-danger ml-2">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const form = document.getElementById('sala-form');
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Coletar dados do formulário
+    const formData = new FormData(form);
+    const salaData = {
+      numero_sala: parseInt(formData.get('numero_sala'), 10),
+      nome: formData.get('nome'),
+      andar: parseInt(formData.get('andar'), 10),
+      capacidade: parseInt(formData.get('capacidade'), 10),
+      descricao: formData.get('descricao'),
+      disponibilidade: formData.get('disponibilidade') === 'true'
+    };
+    
+    try {
+      const response = await fetch('/api/salas', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(salaData)
+      });
+      
+      if (response.ok) {
+        alert('Sala cadastrada com sucesso!');
+        window.location.href = '/salas';
+      } else {
+        const error = await response.json();
+        alert(`Erro ao cadastrar sala: ${error.message || 'Tente novamente'}`);
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Ocorreu um erro ao processar sua solicitação.');
+    }
+  });
+});
+</script>

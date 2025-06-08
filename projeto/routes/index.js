@@ -32,6 +32,8 @@ const salaController = require('../controllers/salaController');
 // Rotas para o CRUD de salas
 router.post('/salas', salaController.criarSala);
 router.get('/salas', salaController.listarSala);
+router.get('/salas/:id', salaController.obterSalaPorId);
+router.put('/salas/:id', salaController.editarSala);
 router.delete('/salas/:id', salaController.excluirSala);
 
 module.exports = router;

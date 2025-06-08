@@ -1,24 +1,62 @@
-<h1>Home</h1>
-<p>Lista de Usuários:</p>
+<div class="hero">
+  <h2>Bem-vindo ao Sistema de Agendamentos</h2>
+  <p>Gerencie facilmente reservas de salas e notebooks para sua empresa.</p>
+  <a href="/novo-agendamento" class="btn btn-success">Criar Novo Agendamento</a>
+</div>
 
-<table border="1" id="usersTable">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Nome</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="3">Carregando usuários...</td>
-    </tr>
-  </tbody>
-</table>
+<section class="card">
+  <div class="card-header">
+    <h3>Agendamentos Recentes</h3>
+    <a href="/agendamentos" class="btn btn-primary">Ver Todos</a>
+  </div>
+  
+  <% if (locals.agendamentos && agendamentos.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Funcionário</th>
+          <th>Sala</th>
+          <th>Notebook</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% agendamentos.forEach(agendamento => { %>
+          <tr>
+            <td><%= new Date(agendamento.data_preenchimento).toLocaleDateString('pt-BR') %></td>
+            <td><%= agendamento.horario %></td>
+            <td><%= agendamento.funcionario_id %></td>
+            <td><%= agendamento.sala_id %></td>
+            <td><%= agendamento.notebook_id %></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="text-center mt-3">Nenhum agendamento recente encontrado.</p>
+  <% } %>
+</section>
 
-<script>
-  // Função para buscar usuários da API e renderizar na tabela
-  async function fetchUsers() {
+<section class="grid">
+  <div class="grid-card">
+    <h3>Salas Disponíveis</h3>
+    <p>Confira nossas <%= locals.totalSalas || 0 %> salas de reunião e espaços para eventos.</p>
+    <a href="/salas" class="btn btn-primary mt-2">Ver Salas</a>
+  </div>
+  
+  <div class="grid-card">
+    <h3>Notebooks Para Empréstimo</h3>
+    <p>Equipamentos disponíveis para uso interno.</p>
+    <a href="#" class="btn btn-primary mt-2">Ver Notebooks</a>
+  </div>
+  
+  <div class="grid-card">
+    <h3>Seus Agendamentos</h3>
+    <p>Visualize e gerencie suas reservas.</p>
+    <a href="/seus-agendamentos/1" class="btn btn-primary mt-2">Meus Agendamentos</a>
+  </div>
+</section>
     try {
       const response = await fetch('/users');
       if (!response.ok) {

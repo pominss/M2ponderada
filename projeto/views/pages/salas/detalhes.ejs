@@ -1,0 +1,130 @@
+<h2 class="page-title">Detalhes da Sala</h2>
+
+<div class="card">
+  <% if (locals.sala && sala) { %>
+    <div class="card-header">
+      <h3><%= sala.nome || `Sala ${sala.numero_sala}` %></h3>
+      <a href="/salas" class="btn btn-primary">Voltar para Lista</a>
+    </div>
+    
+    <div class="p-3">
+      <div class="row mb-3">
+        <div class="col-md-6">
+          <p><strong>Número da Sala:</strong> <%= sala.numero_sala %></p>
+          <p><strong>Andar:</strong> <%= sala.andar || 'Térreo' %></p>
+          <p><strong>Capacidade:</strong> <%= sala.capacidade || 'Não informado' %> pessoas</p>
+          <p><strong>Status:</strong> 
+            <% if (sala.disponibilidade !== false) { %>
+              <span class="badge badge-success">Disponível</span>
+            <% } else { %>
+              <span class="badge badge-danger">Indisponível</span>
+            <% } %>
+          </p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Descrição:</strong></p>
+          <p><%= sala.descricao || 'Sem descrição.' %></p>
+        </div>
+      </div>
+      
+      <div class="text-center mb-3">
+        <a href="/novo-agendamento" class="btn btn-success">Fazer Agendamento</a>
+        <a href="/editar-sala/<%= sala.id %>" class="btn btn-primary ml-2">Editar Sala</a>
+        <button id="excluir-sala" class="btn btn-danger ml-2" data-id="<%= sala.id %>">Excluir Sala</button>
+      </div>
+    </div>
+  <% } else { %>
+    <p class="text-center p-3">Sala não encontrada.</p>
+    <div class="text-center mb-3">
+      <a href="/salas" class="btn btn-primary">Voltar para Lista</a>
+    </div>
+  <% } %>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header">
+    <h3>Calendário de Disponibilidade</h3>
+  </div>
+  <div class="calendar-container" id="sala-calendario"></div>
+</div>
+<!-- Script para o calendário será adicionado no final da página -->
+
+<% if (locals.agendamentos && agendamentos.length > 0) { %>
+  <div class="card mt-3">
+    <div class="card-header">
+      <h3>Agendamentos desta Sala</h3>
+    </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Data</th>
+          <th>Horário</th>
+          <th>Funcionário</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% agendamentos.forEach(ag => { %>
+          <tr>
+            <td><%= new Date(ag.data_preenchimento).toLocaleDateString('pt-BR') %></td>
+            <td><%= ag.horario %></td>
+            <td><%= ag.funcionario_nome %></td>
+            <td>
+              <% if (ag.cancelamento) { %>
+                <span class="badge badge-danger">Cancelado</span>
+              <% } else { %>
+                <span class="badge badge-success">Ativo</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+<% } else { %>
+  <div class="card mt-3 p-3">
+    <p class="text-center">Ainda não há agendamentos para esta sala.</p>
+  </div>
+<% } %>
+
+<!-- Include the calendar script -->
+<script src="/js/salaCalendar.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Botão de excluir
+  const excluirBtn = document.getElementById('excluir-sala');
+  if (excluirBtn) {
+    excluirBtn.addEventListener('click', async () => {
+      const id = excluirBtn.getAttribute('data-id');
+      
+      if (confirm('Tem certeza que deseja excluir esta sala? Todos os agendamentos relacionados serão afetados.')) {
+        try {
+          const response = await fetch(`/api/salas/${id}`, {
+            method: 'DELETE'
+          });
+          
+          if (response.ok) {
+            alert('Sala excluída com sucesso!');
+            window.location.href = '/salas';
+          } else {
+            alert('Erro ao excluir a sala. Talvez existam agendamentos associados a ela.');
+          }
+        } catch (error) {
+          console.error('Erro:', error);
+          alert('Ocorreu um erro ao processar sua solicitação.');
+        }
+      }
+    });
+  }
+  
+  // O botão de editar foi substituído por um link para a nova página de edição
+  
+  // Inicializar o calendário
+  const agendamentosData = <%- JSON.stringify(locals.agendamentos || []) %>;
+  if (document.getElementById('sala-calendario')) {
+    const calendar = new SalaCalendar('sala-calendario', agendamentosData);
+  }
+});
+</script>

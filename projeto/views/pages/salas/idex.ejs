@@ -1,0 +1,116 @@
+<h2 class="page-title">Salas Disponíveis</h2>
+
+<div class="card">
+  <div class="card-header">
+    <h3>Lista de Salas</h3>
+    <div class="header-actions">
+      <div class="search-container">
+        <input type="text" id="search-salas" class="search-input" placeholder="Buscar por nome ou número...">
+        <button id="btn-search" class="btn btn-secondary btn-sm">Buscar</button>
+      </div>
+      <a href="/nova-sala" class="btn btn-primary">Nova Sala</a>
+    </div>
+  </div>
+  
+  <% if (locals.salas && salas.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Número da Sala</th>
+          <th>Nome</th>
+          <th>Andar</th>
+          <th>Capacidade</th>
+          <th>Agendamentos</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% salas.forEach(sala => { %>
+          <tr>
+            <td><%= sala.id %></td>
+            <td><%= sala.numero_sala || 'N/A' %></td>
+            <td><%= sala.nome || 'Sem nome' %></td>
+            <td><%= sala.andar || 'Térreo' %></td>
+            <td><%= sala.capacidade || '0' %> pessoas</td>
+            <td><%= sala.num_agendamentos %> agendamento(s)</td>
+            <td>
+              <a href="/sala/<%= sala.id %>" class="btn btn-primary btn-sm">Detalhes</a>
+              <a href="/editar-sala/<%= sala.id %>" class="btn btn-secondary btn-sm">Editar</a>
+              <button class="btn btn-danger btn-sm delete-sala" data-id="<%= sala.id %>">Excluir</button>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p class="text-center mt-3">Nenhuma sala cadastrada.</p>
+  <% } %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const deleteButtons = document.querySelectorAll('.delete-sala');
+  
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', async () => {
+      const id = button.getAttribute('data-id');
+      if (confirm('Tem certeza que deseja excluir esta sala?')) {
+        try {
+          const response = await fetch(`/api/salas/${id}`, {
+            method: 'DELETE'
+          });
+          
+          if (response.ok) {
+            alert('Sala excluída com sucesso!');
+            window.location.reload();
+          } else {
+            alert('Erro ao excluir a sala. Talvez existam agendamentos associados a ela.');
+          }
+        } catch (error) {
+          console.error('Erro:', error);
+          alert('Ocorreu um erro ao processar sua solicitação.');
+        }
+      }
+    });
+  });
+  
+  // Adicionar funcionalidade de busca
+  const searchInput = document.getElementById('search-salas');
+  const searchButton = document.getElementById('btn-search');
+  const tableRows = document.querySelectorAll('tbody tr');
+  
+  function filterSalas() {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    tableRows.forEach(row => {
+      const numeroSala = row.children[1].textContent.toLowerCase();
+      const nomeSala = row.children[2].textContent.toLowerCase();
+      const andar = row.children[3].textContent.toLowerCase();
+      
+      if (numeroSala.includes(searchTerm) || 
+          nomeSala.includes(searchTerm) || 
+          andar.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+  
+  searchButton.addEventListener('click', filterSalas);
+  
+  searchInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter') {
+      filterSalas();
+    }
+    
+    // Se o campo estiver vazio, mostre todos os resultados
+    if (searchInput.value === '') {
+      tableRows.forEach(row => {
+        row.style.display = '';
+      });
+    }
+  });
+});
+</script>
