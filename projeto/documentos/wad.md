@@ -175,3 +175,19 @@ DB_NAME=
 
 6-Nova Sala
 <img src= '../assets/novaSala.png' alt='imagem de da página de criação de uma nova sala  '>
+
+### Link para um vídeo de demosntração do site
+
+### Tecnologias Utilizadas
+1-SupaBase
+2-Node
+3-JavaScript
+4-HTML
+5-CSS
+6-EJS
+
+### Relatos
+Foi um grande desafio desenvolver esse projeto, precisei de muita ajuda principalmente dos veteranos (obrigado Riciopo), integrar o front-end com o back-end foi um desafio enorme e que não consegui superar completamente. Agora falando um pouco sobre as facilidades, condegui compreender de forma bem consistente a parte do back-end e acredito que estou sabendo relativamente bastante considerando o tempo de estudo.
+
+### Feedbacks
+Compreendo que faz parte da metodologia do inteli, porém a falta de aulas mais teóricas faz com que o desenvolvimento do site seja muito mais demorado e complexo, acho que a ideia de deixar os alunos desenvolverem seu próprio site é muito ineteressante porém acho que poderia ter sido melhor planejada.
