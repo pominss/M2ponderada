@@ -155,3 +155,23 @@ DB_PASSWORD=
 DB_NAME=
 3- Para fazer alterações no banco de dados deve-se ir no arquivo init.sql e fazer as alterações e rodar o comando npm run init-db
 4- Para testar as APIs é preciso de um programa externo use o Postman para testes manuais e Jest/Supertest para testes automatizados.
+
+### Prints das Views
+
+1-Home Page
+<img src= '../assets/home.png' alt='imagem da homepage '>
+
+2-Lista de agendamentos
+<img src= '../assets/listaAgendamentos.png' alt='imagem da página de lista de agendamentos '>
+
+3-Novo Agendamento
+<img src= '../assets/novoAgendamento.png' alt='imagem de da página de um novo agendamento  '>
+
+4-Seus Agendamentos
+<img src= '../assets/seusAgendamentos.png' alt='imagem de da página dos seus agendamentos  '>
+
+5-Salas (dando erro)
+<img src= '../assets/salas.png' alt='imagem de da página das salas '>
+
+6-Nova Sala
+<img src= '../assets/novaSala.png' alt='imagem de da página de criação de uma nova sala  '>

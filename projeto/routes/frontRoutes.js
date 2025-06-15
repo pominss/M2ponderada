@@ -113,20 +113,26 @@ router.get('/seus-agendamentos/:funcionarioId', async (req, res) => {
 // Rota para listar salas
 router.get('/salas', async (req, res) => {
   try {
-    const salasResult = await pool.query('SELECT s.*, (SELECT COUNT(*) FROM agendamento a WHERE a.sala_id = s.id) as num_agendamentos FROM salas s ORDER BY s.id');
+    const result = await pool.query(`
+      SELECT s.*, COUNT(a.id) as num_agendamentos 
+      FROM sala s 
+      LEFT JOIN agendamento a ON s.id = a.sala_id 
+      GROUP BY s.id 
+      ORDER BY s.numero_sala
+    `);
     
     res.render(path.join(__dirname, '../views/layout/main'), {
       pageTitle: 'Salas Disponíveis',
       content: path.join(__dirname, '../views/pages/salas/index'),
-      salas: salasResult.rows
+      salas: result.rows
     });
   } catch (error) {
-    console.error('Erro ao obter salas:', error);
+    console.error('Erro ao buscar salas:', error);
     res.render(path.join(__dirname, '../views/layout/main'), {
       pageTitle: 'Salas Disponíveis',
       content: path.join(__dirname, '../views/pages/salas/index'),
-      salas: [],
-      error: 'Não foi possível carregar as salas.'
+      salas: [], 
+      error: 'Erro ao carregar salas'
     });
   }
 });
